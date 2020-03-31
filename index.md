@@ -12,5 +12,5 @@ Cybersecurity Professional s/Professional/Student always looking to learn, devel
 
 [Twitter](https://www.twitter.com/rufusmbrown){: .btn .text-blue-100}
 [LinkedIn](https://www.linkedin.com/in/rufus-brown/){: .btn .text-blue-100}
-[Email](mailto:rbrown9@live.maryville.edu){: .btn .text-blue-100	
+[Email](mailto:rbrown9@live.maryville.edu){: .btn .text-blue-100}	
 
