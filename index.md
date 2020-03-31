@@ -10,7 +10,7 @@ permalink: /
 
 Cybersecurity Professional s/Professional/Student always looking to learn, develop, and educate others. Detecting and responding to advanced threats @ [FireEye](https://fireeye.com). 
 
-* [Twitter](https://twitter.com/rufusmbrown)
-* [LinkedIn](https://www.linkedin.com/in/rufus-brown/)
-* [Email](mailto:rbrown9@live.maryville.edu)
+* [Twitter](https://twitter.com/rufusmbrown){: .btn }
+* [LinkedIn](https://www.linkedin.com/in/rufus-brown/){: .btn }
+* [Email](mailto:rbrown9@live.maryville.edu){: .btn }
 
