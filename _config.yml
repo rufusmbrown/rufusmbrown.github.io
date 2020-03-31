@@ -43,6 +43,32 @@ footer_content: "Copyright &copy; 2017-2019 Patrick Marsceill. Distributed by an
 # Color scheme currently only supports "dark" or nil (default)
 color_scheme: dark
 
+author:
+  name             : "Rufus Brown"
+  avatar           : "" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
+  bio              : "OSCP"
+  location         : "Washington DC Metro"
+  email            :
+  links:
+    - label: "Email"
+      icon: "fas fa-fw fa-envelope-square"
+      url: mailto:rbrown9@live.maryville.edu
+    - label: "Website"
+      icon: "fas fa-fw fa-link"
+      # url: "https://your-website.com"
+    - label: "Twitter"
+      icon: "fab fa-fw fa-twitter-square"
+      url: "https://twitter.com/rufusmbrown"
+    - label: "Facebook"
+      icon: "fab fa-fw fa-facebook-square"
+      # url: "https://facebook.com/"
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/rufusmbrown"
+    - label: "Instagram"
+      icon: "fab fa-fw fa-instagram"
+      # url: "https://instagram.com/"
+
 # Google Analytics Tracking (optional)
 # e.g, UA-1234567-89
 ga_tracking: UA-2709176-10
