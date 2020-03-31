@@ -6,7 +6,7 @@ description: ""
 permalink: /
 ---
 
-# About Me
+# **About Me**
 
 Cybersecurity Professional s/Professional/Student always looking to learn, develop, and educate others. Detecting and responding to advanced threats @ [FireEye](https://fireeye.com). 
 
