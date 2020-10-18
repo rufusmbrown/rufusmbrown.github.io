@@ -9,4 +9,5 @@ As incident responders, threat analysts, reverse engineers, etc... process injec
 
 Observing rundll32 beaconing to the DigitalOcean ASN may not seem as crazy as 2020 has been but it surely isn't going to make it any better for your organization :). So how can you as an analyst further investigate this suspicious in-memory injected process? A quick understanding of the PE file structures and memory mapping process can help you extract and analyze the injected process on disk.
 
-# **PE File Headers**
+# **PE File Structure**
+---
