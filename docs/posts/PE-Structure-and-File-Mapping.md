@@ -172,6 +172,6 @@ Checking the Imports section again in PE-Bear provides us with complete and non-
 
 **FIN**
 ---
-If you read this post, thanks for sticking around. I am not an expert in PE file structures or reverse engineering; if I completely butchered something feel free to let me know. Hope this is helpful...thanks!
+If you read this post, thanks for sticking around. I am not an expert in PE file structures or reverse engineering; if I completely butchered something feel free to let me know. Hope this is helpful for those learning new concepts or dealing with misaligned PE files from memory...thanks!
 
 
