@@ -43,4 +43,6 @@ When a PE file is mapped from disk into memory, the Windows loader will allocate
 
 <img src="{{ site.url }}{{ site.baseurl }}/images/02.png" alt="">
 
-Based on the output from PE-Bear, we can see that 
+Based on the output from PE-Bear, we can see that the raw offset to the .text section (code) is 0x400 and the virtual offset from the base address is 0x1000 in memory. We can also note that the virtual size of the .text section is 0x17b (379 base-10) smaller than the raw size of the section. Let's take a look at where the raw and virtual .text section ends on disk. We can calculate these offsets by adding the raw size to 0x400 as well as the virtual size to 0x400. This calculates to a raw address of 0xA600 (end of raw .text section) and a raw address of 0xA485 (end of virtual .text section):
+
+<img src="{{ site.url }}{{ site.baseurl }}/images/03.png" alt="">
