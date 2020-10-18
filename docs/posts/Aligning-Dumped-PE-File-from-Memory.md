@@ -117,7 +117,7 @@ int main(int argc, CHAR* argv[]) {
 }
   ```
 
-To calculate the start of the first PE file section, we take the base address of the allocated file in memory and casting it to our PIMAGE_DOS_HEADER struct pointer. From there we calculate the offset to the IMAGE_NT_HEADERS structure by adding the value of e_lfanew to the base address of the file which is typecasted to a DWORD value from the variable **heapAddress**. We can see the format of the IMAGE_NT_HEADERS structure below:
+To calculate the start of the first PE file section, we take the base address of the allocated file in memory and cast it to our PIMAGE_DOS_HEADER struct pointer. From there we calculate the offset to the IMAGE_NT_HEADERS structure by adding the value of e_lfanew to the base address of the file which is typecasted to a DWORD value from the variable **heapAddress**. We can see the format of the IMAGE_NT_HEADERS structure below:
 
 ```
 typedef struct _IMAGE_NT_HEADERS {
