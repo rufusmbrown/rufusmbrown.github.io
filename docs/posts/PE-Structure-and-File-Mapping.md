@@ -75,7 +75,8 @@ LPVOID parseFileHeaders(VOID* heapAddress) {
 	sectionHeader = (PIMAGE_SECTION_HEADER)sectionLocation;
 
 	printf("\n========================================================================================================================\n");
-	printf("[*] Offset to raw .text section: 0x%x\n", sectionHeader->PointerToRawData);
+	printf("[*] Name of section: %s\n", sectionHeader->Name);
+	printf("\n[*] Offset to raw .text section: 0x%x\n", sectionHeader->PointerToRawData);
 	printf("\n[*] Size of raw .text section: 0x%x\n", sectionHeader->SizeOfRawData);
 	printf("\n[*] Offset to virtual .text section: 0x%x\n", sectionHeader->VirtualAddress);
 	printf("\n[*] Size to virtual .text section: 0x%x\n", sectionHeader->Misc.VirtualSize);
@@ -113,3 +114,4 @@ int main(int argc, CHAR* argv[]) {
   ```
 
 <img src="{{ site.url }}{{ site.baseurl }}/images/04.png" alt="">
+
