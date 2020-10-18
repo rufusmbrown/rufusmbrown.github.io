@@ -17,6 +17,7 @@ So what is a PE file and what is the importance of it's structure? The Portable 
 The PE file is broken down into two main sections, the headers and sections. The headers are important data structures for the Windows loader that contain information such as architecture (x86/x64), whether the file is executable, size of each section, preffered virtual base address, etc. We can see an example of a PE file below broken down into the PE headers on the left and different sections on the right:
 
 <img src="{{ site.url }}{{ site.baseurl }}/images/01.png" alt="">
+&nbsp;  
 
 The main data structures that we will be taking a look at in regard to file mapping and injected code are the IMAGE_SECTION_HEADERS. For each PE file section in a binary, there is a corresponding IMAGE_SECTION_HEADER structure that contains information such as the location of the section on disk, the size of the section on disk, the virtual address, and virtual size. Below we can see the C++ structure of the IMAGE_SECTION_HEADER:
 
@@ -47,7 +48,8 @@ When a PE file is mapped from disk into memory, the Windows loader will allocate
 Based on the output from PE-Bear, we can see that the raw offset to the .text section (code) is 0x400 and the virtual offset from the base address is 0x1000 in memory. This means that the beginning of the .text section in memory will be at offset 0x1000 relative to the image base in memory. We can also note that the virtual size of the .text section is 0x17b (379 base-10) smaller than the raw size of the section. Let's take a look at where the raw and virtual .text section ends on disk. We can calculate these offsets by adding the raw size to 0x400 as well as the virtual size to 0x400. This calculates to a raw address of 0xA600 (end of raw .text section) and a raw address of 0xA485 (end of virtual .text section):
 
 <img src="{{ site.url }}{{ site.baseurl }}/images/03.png" alt="">
-&nbsp;  
+&nbsp; 
+
 The blue highlight indicates where the virtual .text section would end and the red highlight indicates where the raw .text section ends. The virtual offset ends write before the null-byte overlay while the raw .text section includes most of the null-byte overlay indicating a larger size on disk. The notion of memory mapping is important to note when dumping injected PE files from memory (i.e. Beacon DLL). We will dive into this toward the end of this write-up. 
 
 # **Parsing PE Headers in C++**
