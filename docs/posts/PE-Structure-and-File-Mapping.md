@@ -112,4 +112,4 @@ int main(int argc, CHAR* argv[]) {
 }
   ```
 
-
+<img src="{{ site.url }}{{ site.baseurl }}/images/04.png" alt="">
