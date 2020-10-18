@@ -1,9 +1,9 @@
 ---
 layout: default
-title: Blogs
+title: Posts
 nav_order: 2
 ---
 
-# Title
+# Posts
 
-* [PE File Structure and Mapping](https://rufusmbrown.github.io/docs/posts/PE-Structure-and-File-Mapping/)
+* [Aligning Dumped PE File from Memory](https://rufusmbrown.github.io/docs/posts/Aligning-Dumped-PE-File-from-Memory/)
