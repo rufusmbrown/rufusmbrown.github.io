@@ -21,7 +21,7 @@ The PE file is broken down into two main parts, the headers and sections. The he
 
 &nbsp;  
 
-The main data structures that we will be taking a look at in regard to file mapping and injected code are the IMAGE_SECTION_HEADERS. For each PE file section in a binary, there is a corresponding IMAGE_SECTION_HEADER structure that contains information such as the location of the section on disk, the size of the section on disk, the virtual address, and virtual size. Below we can see the C++ structure of the IMAGE_SECTION_HEADER:
+The main data structures that we will be taking a look at in regard to file mapping and injected code are the IMAGE_SECTION_HEADERS. For each PE file section in a binary, there is a corresponding **IMAGE_SECTION_HEADER** structure that contains information such as the location of the section on disk, the size of the section on disk, the virtual address, and virtual size. Below we can see the C++ structure of the **IMAGE_SECTION_HEADER**:
 
 ```
 typedef struct _IMAGE_SECTION_HEADER {
@@ -43,13 +43,13 @@ typedef struct _IMAGE_SECTION_HEADER {
 ```
 &nbsp;  
 
-When a PE file is mapped from disk into memory, the Windows loader will allocate the necessary amount of memory the PE file needs and map the sections into memory based on the information specified in the aformentioned structure. It is important to note that the virtual size will typically be smaller than the raw size due to the raw data containing uneccessary data that the file doesn't need. Let's take a look at a 32-bit Internet Explorer (MD5:c613e69c3b191bb02c7a191741a1d024) PE file in PE-Bear:
+When a PE file is mapped from disk into memory, the Windows loader will allocate the necessary amount of memory the PE file needs and map the sections into memory based on the information specified in the aformentioned structure. It is important to note that the virtual size will typically be smaller than the raw size due to the raw data containing uneccessary data that the file doesn't need. Let's take a look at a 32-bit Internet Explorer (MD5:**c613e69c3b191bb02c7a191741a1d024**) PE file in PE-Bear:
 
 <img src="{{ site.url }}{{ site.baseurl }}/images/02.png" alt="">
 &nbsp;  
 
 
-Based on the output from PE-Bear, we can see that the raw offset to the .text section (code) is 0x400 and the virtual offset from the base address is 0x1000 in memory. This means that the beginning of the .text section in memory will be at offset 0x1000 relative to the image base in memory. We can also note that the virtual size of the .text section is 0x17b (379 base-10) smaller than the raw size of the section. Let's take a look at where the raw and virtual .text section ends on disk. We can calculate these offsets by adding the raw size to 0x400 as well as the virtual size to 0x400. This calculates to a raw address of 0xA600 (end of raw .text section) and a raw address of 0xA485 (end of virtual .text section):
+Based on the output from PE-Bear, we can see that the raw offset to the .text section (code) is **0x400** and the virtual offset from the base address is **0x1000** in memory. This means that the beginning of the .text section in memory will be at offset **0x1000** relative to the image base in memory. We can also note that the virtual size of the .text section is **0x17b** (379 base-10) smaller than the raw size of the section. Let's take a look at where the raw and virtual .text section ends on disk. We can calculate these offsets by adding the raw size to **0x400** as well as the virtual size to **0x400**. This calculates to a raw address of **0xA600** (end of raw .text section) and a raw address of **0xA485** (end of virtual .text section):
 
 <img src="{{ site.url }}{{ site.baseurl }}/images/03.png" alt="">
 &nbsp; 
@@ -114,7 +114,7 @@ int main(int argc, CHAR* argv[]) {
 }
   ```
 
-To calculate the start of the first PE file section, we take the base address of the allocated file in memory and cast it to our PIMAGE_DOS_HEADER struct pointer. From there we calculate the offset to the IMAGE_NT_HEADERS structure by adding the value of IMAGE_DOS_HEADER.e_lfanew to the base address of the file which is typecasted to a DWORD value from the variable **heapAddress**. We can see the format of the IMAGE_NT_HEADERS structure below:
+To calculate the start of the first PE file section, we take the base address of the allocated file in memory and cast it to our **PIMAGE_DOS_HEADER** struct pointer. From there we calculate the offset to the **IMAGE_NT_HEADERS** structure by adding the value of **IMAGE_DOS_HEADER.e_lfanew** to the base address of the file which is typecasted to a DWORD value from the variable **heapAddress**. We can see the format of the **IMAGE_NT_HEADERS** structure below:
 
 ```
 typedef struct _IMAGE_NT_HEADERS {
@@ -124,7 +124,7 @@ typedef struct _IMAGE_NT_HEADERS {
 } IMAGE_NT_HEADERS32, *PIMAGE_NT_HEADERS32;
 
 ```
-In order to get to the start address of the first section we have to add the size of DWORD which is the size of the PE file signature ("PE\0\0") to the start address of the IMAGE_NT_HEADERS structure, add the size of the IMAGE_OPTIONAL_HEADER32 header and the IMAGE_FILE_HEADER structure. The calculation of this offset can be seen by referencing the above PE file format image. After compiling the above C++ source code and parsing the 32-bit Internet Explorer binary, we can see that our output matches with the PE-Bear parser:
+In order to get to the start address of the first section we have to add the size of DWORD which is the size of the PE file signature ("PE\0\0") to the start address of the **IMAGE_NT_HEADERS** structure, add the size of the **IMAGE_OPTIONAL_HEADER32** header and the **IMAGE_FILE_HEADER** structure. The calculation of this offset can be seen by referencing the above PE file format image. After compiling the above C++ source code and parsing the 32-bit Internet Explorer binary, we can see that our output matches with the PE-Bear parser:
 
 <img src="{{ site.url }}{{ site.baseurl }}/images/04.png" alt="">
 
@@ -133,7 +133,7 @@ It is also important to note that our Internet Explorer binary is not directly m
 # **Aligning Mapped PE File**
 ---
 
-While investigating active penetration tests, intrusions, malware performing in-memory evasion, you are most likely going to come across some sort of memory injected PE file. For example, if you have access to a infected host that has an injected rundll32 process, you can dump the entire memory of rundll32 or identify the memory section that contains the malicious PE file or code. When you dump a memory section containing a PE file, you are dumping the mapped version of it. This means that the IMAGE_SECTION_HEADER pointer to raw data and raw data sizes are not correctly aligned since it is now on disk. 
+While investigating active penetration tests, intrusions, malware performing in-memory evasion, you are most likely going to come across some sort of memory injected PE file. For example, if you have access to a infected host that has an injected rundll32 process, you can dump the entire memory of rundll32 or identify the memory section that contains the malicious PE file or code. When you dump a memory section containing a PE file, you are dumping the mapped version of it. This means that the **IMAGE_SECTION_HEADER** pointer to raw data and raw data sizes are not correctly aligned since it is now on disk. 
 
 In this example, we are going to dump a mapped version of the native Windows DLL kernel32.dll from memory using ProcessHacker and manually align it correctly on disk. After dumping the process memory of kernel32.dll from a random process and loading the file into PE-Bear, we can see that the file is not aligned correctly by browsing to the Imports section:
 
