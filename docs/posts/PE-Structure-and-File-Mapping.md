@@ -136,4 +136,8 @@ It is also important to note that our Internet Explorer binary is not directly m
 
 While investigating active penetration tests, intrusions, malware performing in-memory evasion, you are most likely going to come across some sort of memory injected PE file. For example, if you have access to a infected host that has an injected rundll32 process, you can dump the entire memory of rundll32 or identify the memory section that contains the malicious PE file or code. When you dump a memory section containing a PE file, you are dumping the mapped version of it. This means that the IMAGE_SECTION_HEADER pointer to raw data and raw data sizes are not correctly aligned to the mapped version since it is on disk. 
 
-In this example, we are going to dump a mapped version of the native Windows DLL kernel32.dll from memory and manually align it correctly on disk. 
+In this example, we are going to dump a mapped version of the native Windows DLL kernel32.dll from memory using ProcessHacker and manually align it correctly on disk. After dumping the process memory of kernel32.dll from a random process and loading the file into PE-Bear, we can see that the file is not aligned correctly by browsing to the Imports section:
+
+<img src="{{ site.url }}{{ site.baseurl }}/images/05.png" alt="">
+&nbsp;  
+
