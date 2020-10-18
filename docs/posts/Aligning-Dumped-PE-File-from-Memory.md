@@ -21,7 +21,7 @@ The PE file is broken down into two main parts, the headers and sections. The he
 
 &nbsp;  
 
-The main data structures that we will be taking a look at in regard to file mapping and injected code are the IMAGE_SECTION_HEADERS. For each PE file section in a binary, there is a corresponding **IMAGE_SECTION_HEADER** structure that contains information such as the location of the section on disk, the size of the section on disk, the virtual address, and virtual size. Below we can see the C++ structure of the **IMAGE_SECTION_HEADER**:
+The main data structures that we will be taking a look at in regard to file mapping and injected code are the **IMAGE_SECTION_HEADERS**. For each PE file section in a binary, there is a corresponding **IMAGE_SECTION_HEADER** structure that contains information such as the location of the section on disk, the size of the section on disk, the virtual address, and virtual size. Below we can see the C++ structure of the **IMAGE_SECTION_HEADER**:
 
 ```
 typedef struct _IMAGE_SECTION_HEADER {
