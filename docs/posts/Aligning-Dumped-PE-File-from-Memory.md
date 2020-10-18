@@ -140,7 +140,7 @@ In this example, we are going to dump a mapped version of the native Windows DLL
 <img src="{{ site.url }}{{ site.baseurl }}/images/05.png" alt="">
 &nbsp;  
 
-PE-Bear also displays the following values of the IMAGE_SECTION_HEADERS for the mapped version of the PE file:
+PE-Bear also displays the following values of the **IMAGE_SECTION_HEADERS** for the mapped version of the PE file:
 
 
 | Raw Addr.    | Raw Size.          | Virtual Addr. | Virtual Size.    |
