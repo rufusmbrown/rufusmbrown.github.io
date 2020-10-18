@@ -170,6 +170,10 @@ In order to correctly align the PE file, we must change the pointer to raw addre
 
 Checking the Imports section again in PE-Bear provides us with complete and non-corrupted entries meaning the PE file is correctly aligned. 
 
+<img src="{{ site.url }}{{ site.baseurl }}/images/06.png" alt="">
+&nbsp;  
+
+
 **FIN**
 ---
 If you read this post, thanks for sticking around. I am not an expert in PE file structures or reverse engineering; if I completely butchered something feel free to let me know. Hope this is helpful for those learning new concepts or dealing with misaligned PE files from memory...thanks!
