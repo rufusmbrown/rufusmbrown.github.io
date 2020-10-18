@@ -153,7 +153,7 @@ PE-Bear also displays the following values of the IMAGE_SECTION_HEADERS for the 
 | 113C00          |   7C00         | 117000  |		7AB4		|
 
 
-In order to correctly align the PE file, we must change the pointer to raw addresses as the same as the virtual address in order to correctly align it as it was in memory. From there, we calculate the raw size by calculating the difference between each virtual address. For example, the difference between the offset value of 0x9C000 for the second section and the offset value 0x1000 of the section section is 0x9B000. The value 0x9B000 will be the raw size value of the first section of kernel32.dll. Below is the correct alignment of the PE file after modification: 
+In order to correctly align the PE file, we must change the pointer to raw addresses as the same as the virtual address in order to correctly align it as it was in memory. From there, we calculate the raw size by calculating the difference between each virtual address. For example, the difference between the offset value of **0x9C000** for the second section and the offset value **0x1000** of the section section is **0x9B000**. The value **0x9B000** will be the raw size value of the first section of kernel32.dll. Below is the correct alignment of the PE file after modification: 
 
 
 | Raw Addr.    | Raw Size.          | Virtual Addr. | Virtual Size.    |
