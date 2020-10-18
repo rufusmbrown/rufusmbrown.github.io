@@ -1,6 +1,6 @@
 ---
 layout: default
-title: PE File Structure and Mapping
+title: PE File Mapping and Structure
 parent: Posts
 ---
 
@@ -169,3 +169,9 @@ In order to correctly align the PE file, we must change the pointer to raw addre
 | 117000          |   0         | 117000  |		0		|
 
 Checking the Imports section again in PE-Bear provides us with complete and non-corrupted entries meaning the PE file is correctly aligned. 
+
+**FIN**
+---
+If you read this post, thanks for sticking around. I am not an expert in PE file structures or reverse engineering; if I completely butchered something feel free to let me know. Hope this is helpful...thanks!
+
+
