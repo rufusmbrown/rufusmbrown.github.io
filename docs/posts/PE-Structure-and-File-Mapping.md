@@ -67,7 +67,7 @@ PIMAGE_DOS_HEADER dosheader;
 PIMAGE_NT_HEADERS ntheader;
 PIMAGE_SECTION_HEADER sectionHeader;
 
-LPVOID parseFileHeaders(VOID* heapAddress) {
+VOID parseFileHeaders(VOID* heapAddress) {
 
 	dosheader = (PIMAGE_DOS_HEADER)(DWORD)heapAddress;
 	ntheader = (PIMAGE_NT_HEADERS)((DWORD)heapAddress + dosheader->e_lfanew);
@@ -82,7 +82,7 @@ LPVOID parseFileHeaders(VOID* heapAddress) {
 	printf("\n[*] Size to virtual .text section: 0x%x\n", sectionHeader->Misc.VirtualSize);
 	printf("\n========================================================================================================================\n");
 	system("pause");
-	return NULL;
+	
 }
 
 int main(int argc, CHAR* argv[]) {
@@ -97,6 +97,8 @@ int main(int argc, CHAR* argv[]) {
 
 	if (hInitialFile == INVALID_HANDLE_VALUE) {
 		printf("Could not read file");
+		
+		return NULL;
 	}
 
 	DWORD dFileSize = GetFileSize(hInitialFile, NULL);
@@ -127,4 +129,11 @@ In order to get to the start address of the first section we have to add the siz
 
 <img src="{{ site.url }}{{ site.baseurl }}/images/04.png" alt="">
 
-It is also important to note that our Internet Explorer binary is not directly mapped into memory since we read the bytes from disk into an allocated memory buffer. 
+It is also important to note that our Internet Explorer binary is not directly mapped into memory since we read the bytes from disk into an allocated memory buffer. The binary will be as it is on disk. Let's take what we learned and apply it to dumping a mapped file from memory and correctly aligning it.
+
+# **Aligning Mapped PE File**
+---
+
+While investigating active penetration tests, intrusions, malware performing in-memory evasion, you are most likely going to come across some sort of memory injected PE file. For example, if you have access to a infected host that has an injected rundll32 process, you can dump the entire memory of rundll32 or identify the memory section that contains the malicious PE file or code. When you dump a memory section containing a PE file, you are dumping the mapped version of it. This means that the IMAGE_SECTION_HEADER pointer to raw data and raw data sizes are not correctly aligned to the mapped version since it is on disk. 
+
+In this example, we are going to dump a mapped version of the native Windows DLL kernel32.dll from memory and manually align it correctly on disk. 
