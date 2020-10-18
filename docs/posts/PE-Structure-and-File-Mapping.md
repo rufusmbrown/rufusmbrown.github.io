@@ -54,9 +54,9 @@ Based on the output from PE-Bear, we can see that the raw offset to the .text se
 
 The blue highlight indicates where the virtual .text section would end and the red highlight indicates where the raw .text section ends. The virtual offset ends write before the null-byte overlay while the raw .text section includes most of the null-byte overlay indicating a larger size on disk. The notion of memory mapping is important to note when dumping injected PE files from memory (i.e. Beacon DLL). We will dive into this toward the end of this write-up. 
 
-# **Parsing PE Headers in C++**
+# **Parsing Section Header in C++**
 ---
-While there is already a ton of great write ups on parsing PE files in C++, I wanted to quickly dive into parsing PE headers for those who may be new/learning C++ (a.k.a me) to show some easy examples. Below is example C++ source code that takes a PE file path as an argument, opens a handle to the file, allocates memory from the heap, reads the bytes of the file of disk into the allocated memory, and parses the .text section header:
+While there is already a ton of great write ups on parsing PE files in C++, I wanted to quickly dive into parsing PE headers for those who may be new/learning C++ (a.k.a me) to show some easy examples. Below is example C++ source code that takes a PE file path as an argument, opens a handle to the file, allocates memory from the heap, reads the bytes of the file from disk into the allocated memory, and parses the .text section header:
 
 ```
 #include <Windows.h>
@@ -127,3 +127,4 @@ In order to get to the start address of the first section we have to add the siz
 
 <img src="{{ site.url }}{{ site.baseurl }}/images/04.png" alt="">
 
+It is also important to note that our Internet Explorer binary is not directly mapped into memory since we read the bytes from disk into an allocated memory buffer. 
