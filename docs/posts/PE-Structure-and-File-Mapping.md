@@ -56,4 +56,60 @@ The blue highlight indicates where the virtual .text section would end and the r
 
 # **Parsing PE Headers in C++**
 ---
-While there is already a ton of great write ups on parsing PE files in C++, I wanted to quickly dive into parsing PE headers for those who may be new/learning C++ (a.k.a me) to show some easy examples. 
+While there is already a ton of great write ups on parsing PE files in C++, I wanted to quickly dive into parsing PE headers for those who may be new/learning C++ (a.k.a me) to show some easy examples. Below is example C++ source code that takes a PE file path as an argument, opens a handle to the file, allocates memory from the heap, reads the bytes of the file of disk into the allocated memory, and parses the .text section header:
+
+```
+#include <Windows.h>
+#include <iostream>
+
+DWORD dBytesRead{ NULL };
+PIMAGE_DOS_HEADER dosheader;
+PIMAGE_NT_HEADERS ntheader;
+PIMAGE_SECTION_HEADER sectionHeader;
+
+LPVOID parseFileHeaders(VOID* heapAddress) {
+
+	dosheader = (PIMAGE_DOS_HEADER)(DWORD)heapAddress;
+	ntheader = (PIMAGE_NT_HEADERS)((DWORD)heapAddress + dosheader->e_lfanew);
+	DWORD sectionLocation = ((DWORD)ntheader + sizeof(DWORD) + (DWORD)ntheader->FileHeader.SizeOfOptionalHeader + (DWORD)sizeof(IMAGE_FILE_HEADER));
+	sectionHeader = (PIMAGE_SECTION_HEADER)sectionLocation;
+
+	printf("\n========================================================================================================================\n");
+	printf("[*] Offset to raw .text section: 0x%x\n", sectionHeader->PointerToRawData);
+	printf("\n[*] Size of raw .text section: 0x%x\n", sectionHeader->SizeOfRawData);
+	printf("\n[*] Offset to virtual .text section: 0x%x\n", sectionHeader->VirtualAddress);
+	printf("\n[*] Size to virtual .text section: 0x%x\n", sectionHeader->Misc.VirtualSize);
+	printf("\n========================================================================================================================\n");
+	system("pause");
+	return NULL;
+}
+
+int main(int argc, CHAR* argv[]) {
+
+	HANDLE hInitialFile = CreateFileA(argv[1], 
+		GENERIC_ALL, 
+		FILE_SHARE_READ,
+		NULL,
+		OPEN_EXISTING, 
+		FILE_ATTRIBUTE_NORMAL,
+		NULL);
+
+	if (hInitialFile == INVALID_HANDLE_VALUE) {
+		printf("Could not read file");
+	}
+
+	DWORD dFileSize = GetFileSize(hInitialFile, NULL);
+
+	LPVOID pHeapFile = HeapAlloc(GetProcessHeap(), 0, dFileSize);
+	ReadFile(hInitialFile, pHeapFile, dFileSize, &dBytesRead, NULL);
+
+	CloseHandle(hInitialFile);
+
+	parseFileHeaders(pHeapFile);
+	
+
+	return NULL;
+}
+  ```
+
+
