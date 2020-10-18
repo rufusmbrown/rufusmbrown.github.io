@@ -104,14 +104,11 @@ int main(int argc, CHAR* argv[]) {
 	}
 
 	DWORD dFileSize = GetFileSize(hInitialFile, NULL);
-
 	LPVOID pHeapFile = HeapAlloc(GetProcessHeap(), 0, dFileSize);
 	ReadFile(hInitialFile, pHeapFile, dFileSize, &dBytesRead, NULL);
 
 	CloseHandle(hInitialFile);
-
 	parseFileHeaders(pHeapFile);
-	
 
 	return NULL;
 }
