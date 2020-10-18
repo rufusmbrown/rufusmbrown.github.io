@@ -141,3 +141,29 @@ In this example, we are going to dump a mapped version of the native Windows DLL
 <img src="{{ site.url }}{{ site.baseurl }}/images/05.png" alt="">
 &nbsp;  
 
+PE-Bear also displays the following values of the IMAGE_SECTION_HEADERS for the mapped version of the PE file:
+
+
+| Raw Addr.    | Raw Size.          | Virtual Addr. | Virtual Size.    |
+|:-------------|:------------------|:----------------|:----------------
+| 400           | 9AC00            | 1000          |	9AA8D		|
+| 9B000          | 6D800           | 9C000          |	6D7D8		|
+| 108800          | 1600           | 10A000       |	1980		|
+| 109E00          |   9800          | 10C000  |		9714		|
+| 113600          |    600         | 116000  |		528		|
+| 113C00          |   7C00         | 117000  |		7AB4		|
+
+
+In order to correctly align the PE file, we must change the pointer to raw addresses as the same as the virtual address in order to correctly align it as it was in memory. From there, we calculate the raw size by calculating the difference between each virtual address. For example, the difference between the offset value of 0x9C000 for the second section and the offset value 0x1000 of the section section is 0x9B000. The value 0x9B000 will be the raw size value of the first section of kernel32.dll. Below is the correct alignment of the PE file after modification: 
+
+
+| Raw Addr.    | Raw Size.          | Virtual Addr. | Virtual Size.    |
+|:-------------|:------------------|:----------------|:----------------
+| 1000           | 9B000            | 1000          |	9B000		|
+| 9C000          | 6E000           | 9C000          |	6E000		|
+| 10A000          | 2000           | 10A000       |	2000		|
+| 10C000          |   A000          | 10C000  |		A000		|
+| 116000          |    1000         | 116000  |		1000		|
+| 117000          |   0         | 117000  |		0		|
+
+Checking the Imports section again in PE-Bear provides us with a complete and non-corrupted entries meaning the PE file is correctly aligned. 
