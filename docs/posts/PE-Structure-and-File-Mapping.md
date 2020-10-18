@@ -1,6 +1,7 @@
 ---
 layout: default
 title: PE File Structure and Mapping
+parent: posts
 ---
 
 # **Intro**
