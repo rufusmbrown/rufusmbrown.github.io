@@ -113,5 +113,17 @@ int main(int argc, CHAR* argv[]) {
 }
   ```
 
+To calculate the start of the first PE file section, we take the baseaddress of the allocated file in memory and casting it to our PIMAGE_DOS_HEADER struct pointer. From there we calculate the offset to the IMAGE_NT_HEADERS structure by adding the value of e_lfanew to the base address of the file which is typecasted to a DWORD value from the variable **heapAddress**. We can see the format of the IMAGE_NT_HEADERS structure below:
+
+```
+typedef struct _IMAGE_NT_HEADERS {
+  DWORD                   Signature;
+  IMAGE_FILE_HEADER       FileHeader;
+  IMAGE_OPTIONAL_HEADER32 OptionalHeader;
+} IMAGE_NT_HEADERS32, *PIMAGE_NT_HEADERS32;
+
+```
+In order to get to the start address of the first section we have to add the size of DWORD which is the size of the PE file signature ("PE\0\0") to the start address of the IMAGE_NT_HEADERS structure, add the size of the IMAGE_OPTIONAL_HEADER32 header and the IMAGE_FILE_HEADER structure. The calculation of this offset can be seen by referencing the above PE file format image. After compiling the above C++ source and parsing the 32-bit Internet Explorer binary, we can see that our output matches with the PE-Bear parser:
+
 <img src="{{ site.url }}{{ site.baseurl }}/images/04.png" alt="">
 
