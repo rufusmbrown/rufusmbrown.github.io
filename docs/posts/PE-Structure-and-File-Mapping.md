@@ -17,6 +17,8 @@ So what is a PE file and what is the importance of it's structure? The Portable 
 The PE file is broken down into two main sections, the headers and sections. The headers are important data structures for the Windows loader that contain information such as architecture (x86/x64), whether the file is executable, size of each section, preffered virtual base address, etc. We can see an example of a PE file below broken down into the PE headers on the left and different sections on the right:
 
 <img src="{{ site.url }}{{ site.baseurl }}/images/01.png" alt="">
+*https://i2.wp.com/dandylife.net/blog/wp-content/uploads/2015/02/pe_format.png*
+
 &nbsp;  
 
 The main data structures that we will be taking a look at in regard to file mapping and injected code are the IMAGE_SECTION_HEADERS. For each PE file section in a binary, there is a corresponding IMAGE_SECTION_HEADER structure that contains information such as the location of the section on disk, the size of the section on disk, the virtual address, and virtual size. Below we can see the C++ structure of the IMAGE_SECTION_HEADER:
@@ -166,4 +168,4 @@ In order to correctly align the PE file, we must change the pointer to raw addre
 | 116000          |    1000         | 116000  |		1000		|
 | 117000          |   0         | 117000  |		0		|
 
-Checking the Imports section again in PE-Bear provides us with a complete and non-corrupted entries meaning the PE file is correctly aligned. 
+Checking the Imports section again in PE-Bear provides us with complete and non-corrupted entries meaning the PE file is correctly aligned. 
