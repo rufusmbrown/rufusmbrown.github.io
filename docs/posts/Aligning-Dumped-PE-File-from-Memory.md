@@ -14,7 +14,7 @@ Observing rundll32 beaconing to the DigitalOcean ASN may not seem as crazy as 20
 ---
 So what is a PE file and what is the importance of it's structure? The Portable Executable (PE) file format is the Common Object File Format (COFF) for executables (EXE) and Dynamic Link Libraries (DLL) for 32-bit and 64-bit binaries on a Windows operating system. The PE file format contains data structures in order for the Windows loader to interperet and correctly map parts of the file into memory. 
 
-The PE file is broken down into two main sections, the headers and sections. The headers are important data structures for the Windows loader that contain information such as architecture (x86/x64), whether the file is executable, size of each section, preffered virtual base address, etc. We can see an example of a PE file below broken down into the PE headers on the left and different sections on the right:
+The PE file is broken down into two main parts, the headers and sections. The headers are important data structures for the Windows loader that contain information such as architecture (x86/x64), whether the file is executable, size of each section, preffered virtual base address, etc. We can see an example of a PE file below broken down into the PE headers on the left and different sections on the right:
 
 <img src="{{ site.url }}{{ site.baseurl }}/images/01.png" alt="">
 *https://i2.wp.com/dandylife.net/blog/wp-content/uploads/2015/02/pe_format.png*
