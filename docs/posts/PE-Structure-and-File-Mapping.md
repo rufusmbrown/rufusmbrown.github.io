@@ -1,6 +1,6 @@
 ---
 layout: default
-title: PE File Mapping and Structure
+title: Aligning Dumped PE File from Memory
 parent: Posts
 ---
 
