@@ -39,11 +39,13 @@ typedef struct _IMAGE_SECTION_HEADER {
 } IMAGE_SECTION_HEADER, *PIMAGE_SECTION_HEADER;
 
 ```
+&nbsp;  
 
 When a PE file is mapped from disk into memory, the Windows loader will allocate the necessary amount of memory the PE file needs and map the sections into memory based on the information specified in the aformentioned structure. It is important to note that the virtual size will typically be smaller than the raw size due to the raw data containing uneccessary data that the file doesn't need. Let's take a look at a 32-bit Internet Explorer (MD5:c613e69c3b191bb02c7a191741a1d024) PE file in PE-Bear:
 
 <img src="{{ site.url }}{{ site.baseurl }}/images/02.png" alt="">
 &nbsp;  
+
 
 Based on the output from PE-Bear, we can see that the raw offset to the .text section (code) is 0x400 and the virtual offset from the base address is 0x1000 in memory. This means that the beginning of the .text section in memory will be at offset 0x1000 relative to the image base in memory. We can also note that the virtual size of the .text section is 0x17b (379 base-10) smaller than the raw size of the section. Let's take a look at where the raw and virtual .text section ends on disk. We can calculate these offsets by adding the raw size to 0x400 as well as the virtual size to 0x400. This calculates to a raw address of 0xA600 (end of raw .text section) and a raw address of 0xA485 (end of virtual .text section):
 
